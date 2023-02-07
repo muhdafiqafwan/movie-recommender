@@ -12,7 +12,7 @@ The objective of this project is to create and implement a movie recommendation 
 - Bootstrap
 - Javascript
 
-# Screenshot
+# Screenshots
 ![Landing Page](https://user-images.githubusercontent.com/63769862/217317053-f2c3db81-95a4-4fac-ba3c-2fb7ba1ccdd4.png)
 ![Homepage](https://user-images.githubusercontent.com/63769862/217317064-4c439a4c-6f30-4b73-9fa7-6e59e0eed252.png)
 ![Movie Details](https://user-images.githubusercontent.com/63769862/217317072-b5c189f6-b34e-4750-a9c7-0de1c12c1bb7.png)
