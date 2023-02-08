@@ -223,7 +223,7 @@ public class MicroRecomSystemController {
     /* MOVIE */
     // Endpoint for getting specific movie details
     @GetMapping("/movieDetails")
-    public String getMovieDetails(@ModelAttribute("movie") Movie movie, @ModelAttribute("favorite") Favorite favorite, @RequestParam int id, Model model, HttpSession session) {
+    public String getMovieDetails(@ModelAttribute("movie") Movie movie, @ModelAttribute("favorite") Favorite favorite, @ModelAttribute("rating") Rating rating, @RequestParam int id, Model model, HttpSession session) {
         try {
             
             HttpEntity<Integer> entity = new HttpEntity<Integer>(id);
@@ -253,7 +253,9 @@ public class MicroRecomSystemController {
             // Get user's favorite movie
             Favorite getFavorite = restTemplate.exchange("http://localhost:8085/favorite/favorites/" + id + "/" + session.getAttribute("userId"), HttpMethod.GET, entity, Favorite.class).getBody();
             model.addAttribute("favorite", getFavorite);
-            model.addAttribute("movie", getMovie);
+            
+            Rating getRating = restTemplate.exchange("http://localhost:8087/rating/ratings/" + id + "/" + session.getAttribute("userId"), HttpMethod.GET, entity, Rating.class).getBody();
+            model.addAttribute("rating", getRating);
         }
         return "/user/movieDetails";
     }
@@ -301,4 +303,17 @@ public class MicroRecomSystemController {
         return "redirect:/movieDetails?id=" + favorite.getMovieId();
     }
     /* END FAVORITE */
+
+    /* RATING */
+    // Endpoint for adding rating
+    @PostMapping("/addRating")
+    public String addRating(@ModelAttribute("rating") Rating rating, Model model)
+    {
+        System.out.println(rating);
+        HttpEntity<Rating> entity = new HttpEntity<Rating>(rating);
+        // Call api to post data for adding new rating
+        restTemplate.exchange("http://localhost:8087/rating/addRating", HttpMethod.POST, entity, Rating.class).getBody();
+        return "redirect:/movieDetails?id=" + rating.getMovieId();
+    }
+    /* END RATING */
 }
